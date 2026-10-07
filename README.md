@@ -1,4 +1,14 @@
-Да. У тебя уже есть **довольно серьезный Next.js-проект**, поэтому второй проект я бы специально сделал маленьким, но таким, где ты руками потрогаешь технологии, которые часто встречаются во frontend-вакансиях.
+//TO DO
+// Вынести ActivityCard в отдельный компонент.
+// Tailwind + shadcn/ui — Button, Card, Dialog, Input, Select.
+
+// React Router — 3 страницы: /, /activities/:id, /settings.
+
+// React Hook Form + Zod — форма создания активности.
+
+// localStorage — сохранение и загрузка состояния.
+
+// Vitest + Testing Library — 5–7 тестов.
 
 Я бы предложил не делать очередной todo.
 
