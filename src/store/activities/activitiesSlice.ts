@@ -1,39 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Activity } from '../../types/activity'
-import { initialState } from '../../const/initActivity'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-const activitySlice = createSlice({
+import type { Activity } from '@/types/activity'
+
+import { loadActivities } from '@/storage/activitiesStorage'
+
+const initialState: Activity[] = loadActivities()
+
+const activitiesSlice = createSlice({
    name: 'activity',
+
    initialState,
+
    reducers: {
-      activityAdded(state, action: PayloadAction<Activity>) {
+      activityAdded: (state, action: PayloadAction<Activity>) => {
          state.push(action.payload)
       },
-      activityRemoved(state, action: PayloadAction<string>) {
-         return state.filter((post) => post.id !== action.payload)
+
+      activityRemoved: (state, action: PayloadAction<string>) => {
+         return state.filter((activity) => activity.id !== action.payload)
       },
-      toggleActivityCompletion(state, action: PayloadAction<string>) {
+
+      toggleActivityCompletion: (state, action: PayloadAction<string>) => {
          const activity = state.find(
             (activity) => activity.id === action.payload,
          )
 
-         if (!activity) return
+         if (!activity) {
+            return
+         }
 
          const today = new Date().toLocaleDateString('ru-RU')
-         const isCompleted = activity.completedDates.includes(today)
 
-         if (isCompleted) {
-            activity.completedDates = activity.completedDates.filter(
-               (date) => date !== today,
-            )
-         } else {
+         const completedIndex = activity.completedDates.indexOf(today)
+
+         if (completedIndex === -1) {
             activity.completedDates.push(today)
+         } else {
+            activity.completedDates.splice(completedIndex, 1)
          }
       },
    },
 })
 
 export const { activityAdded, activityRemoved, toggleActivityCompletion } =
-   activitySlice.actions
-export default activitySlice.reducer
+   activitiesSlice.actions
+
+export default activitiesSlice.reducer
