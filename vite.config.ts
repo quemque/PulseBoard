@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
    plugins: [
       tailwindcss(),
       react(),
@@ -16,5 +16,5 @@ export default defineConfig({
          '@': path.resolve(__dirname, './src'),
       },
    },
-   base: '/PulseBoard/',
-})
+   base: mode === 'production' ? '/PulseBoard/' : '/',
+}))
