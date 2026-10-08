@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import type { RootState, AppDispatch } from '@/store/store'
+import type { AppDispatch } from '@/store/store'
+import { selectActivities } from '@/store/activities/selectors'
 
 export function useDashboard() {
-   const activities = useSelector((state: RootState) => state.activity)
+   const activities = useSelector(selectActivities)
 
    const dispatch = useDispatch<AppDispatch>()
 
